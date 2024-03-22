@@ -105,6 +105,6 @@ class game(snake):
 
 		pygame.quit()
 
-if __name__ == "__main__":
-    game_instance = game((0,0))
-    game_instance.start_game()	
+
+game_instance = game((0,0))
+game_instance.start_game()	
