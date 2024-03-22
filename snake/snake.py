@@ -1,4 +1,3 @@
-from enum import Flag
 import pygame
 import random
 
@@ -7,7 +6,7 @@ pygame.init()
 #Constants
 WIDTH = 500
 HEIGHT = 500
-MOVEMENT = 7
+MOVEMENT = 5
 FPS = 30
 IMGX = 15
 IMGY = 15
@@ -59,6 +58,8 @@ class snake():
 		if not growth:
 			self.segments.pop()
 
+		growth = False
+
 		#if (self.wall_collision(next_pos)):
 		#	self.reset_position()
 
@@ -106,8 +107,13 @@ class apple():
 
 	#Initializing Apple Element
     def __init__(self):
-        self.apple_img = pygame.image.load("images/apple_red_64.png")
-        self.apple_img = pygame.transform.scale(self.apple_img, (IMGX, IMGY))
+        self.apple_green_img = pygame.image.load("images/apple_green_64.png")
+        self.apple_green_img = pygame.transform.scale(self.apple_green_img, (IMGX, IMGY))
+
+        self.apple_red_img = pygame.image.load("images/apple_red_64.png")
+        self.apple_red_img = pygame.transform.scale(self.apple_red_img, (IMGX,IMGY))
+
+        self.apple = self.apple_green_img
         self.apple_pos = (WIDTH // 2, HEIGHT // 2)
 
     #Spawning apple
@@ -118,6 +124,10 @@ class apple():
             x = random.randint(0, WIDTH - IMGX)
             y = random.randint(0, HEIGHT - IMGY)
             self.apple_pos = (x, y)
+            self.fruit_selection()
+            return True
+
+        return False
 
     #Check if the snake collides with the apple
     def apple_collision(self, snake_head_pos):
@@ -129,8 +139,15 @@ class apple():
 
     #Render the apple
     def load_apple(self):
+        Screen.blit(self.apple, self.apple_pos)
 
-    	Screen.blit(self.apple_img,self.apple_pos)
+    def fruit_selection(self):
+        probability = random.randint(1,5)
+        if probability == 5:
+            self.apple = self.apple_red_img
+        else:
+       		self.apple = self.apple_green_img
+
 
 
 
@@ -174,7 +191,8 @@ class game():
 			self.snake.move(self.growth)
 
 			#Refreshing the background Image
-			Screen.blit(self.snake.background_image, (0, 0))
+			#Screen.blit(self.snake.background_image, (0, 0))
+			Screen.fill((0,0,0))
 
 			#Checking self collision
 			if self.snake.self_collision():
@@ -183,14 +201,8 @@ class game():
 			#Obtaining the head point
 			head = self.snake.get_head_position()
 			
-			#Spawn the apple
-			self.apple.spawn_apple(head)
-
-			#Apple Collision
-			if self.apple.apple_collision(head):
-				self.growth = True
-			else:
-				self.growth = False
+			#Spawn the apple and check collision and return if the snake has growth or not
+			self.growth = self.apple.spawn_apple(head)
 
 			#Render the snake and apple
 			self.snake.load_snake(self.snake.snake_head,self.snake.snake_body)
