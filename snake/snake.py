@@ -1,4 +1,3 @@
-from enum import unique
 import pygame
 
 pygame.init()
@@ -6,7 +5,7 @@ pygame.init()
 #Constants
 WIDTH = 500
 HEIGHT = 500
-MOVEMENT = 2
+MOVEMENT = 5
 FPS = 60
 
 Screen = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -41,10 +40,10 @@ class snake():
 			self.segments.pop()
 			self.reset_position()
 
-	def load_snake(self):
+	def load_snake(self, snake_image):
 		for pos in self.segments:
 			pos = pygame.Vector2(pos)
-			pygame.draw.rect(Screen,(0,0,255),(pos.x,pos.y,10,10))
+			Screen.blit(snake_image, (pos.x, pos.y))
 
 	def reset_position(self):
 		self.segments.insert(0,(WIDTH//2,HEIGHT//2))
@@ -73,6 +72,9 @@ class game(snake):
 
 		running = True
 
+		snake_image = pygame.image.load("images/snake_yellow_blob_64.png")
+		snake_image = pygame.transform.scale(snake_image, (10, 10))
+
 		while running:
 
 			for event in pygame.event.get():
@@ -98,7 +100,9 @@ class game(snake):
 			if self.snake.self_collision():
 				running = False
 
-			self.snake.load_snake()
+			self.snake.load_snake(snake_image)
+
+			Screen.blit(snake_image, self.snake.segments[0])
 
 			pygame.display.flip()
 			clock.tick(FPS)
