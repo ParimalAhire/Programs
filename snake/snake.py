@@ -24,9 +24,6 @@ class snake():
 		self.snake_head = pygame.image.load("images/snake_yellow_head_64.png")
 		self.snake_head = pygame.transform.scale(self.snake_head, (IMGX, IMGY))
 
-		self.background_image = pygame.image.load("images/background_game1.png")
-		self.background_image = pygame.transform.scale(self.background_image, (WIDTH,HEIGHT))
-
 		#Snake Segment
 		self.segments = [start_pos,(start_pos.x,start_pos.y)]
 		self.direction = pygame.K_RIGHT 	#Snake Initial Direction 
@@ -148,9 +145,6 @@ class apple():
         else:
        		self.apple = self.apple_green_img
 
-
-
-
 class game():
 
 	#initializing the game element
@@ -161,6 +155,10 @@ class game():
 		start_pos = pygame.Vector2(WIDTH//2, HEIGHT//2) 	#starting position of snake
 		self.snake = snake(start_pos)			#snake instance
 		self.apple = apple()				#apple instance
+
+		#Game Background
+		self.background_image = pygame.image.load("images/background_game3.png")
+		self.background_image = pygame.transform.scale(self.background_image, (WIDTH,HEIGHT))
 
 	#Game function
 	def start_game(self):
@@ -191,8 +189,8 @@ class game():
 			self.snake.move(self.growth)
 
 			#Refreshing the background Image
-			#Screen.blit(self.snake.background_image, (0, 0))
-			Screen.fill((0,0,0))
+			Screen.blit(self.background_image, (0, 0))
+			#Screen.fill((0,0,0))
 
 			#Checking self collision
 			if self.snake.self_collision():
@@ -207,7 +205,6 @@ class game():
 			#Render the snake and apple
 			self.snake.load_snake(self.snake.snake_head,self.snake.snake_body)
 			self.apple.load_apple()
-
 
 			pygame.display.flip()
 			clock.tick(FPS)
