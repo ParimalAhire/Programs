@@ -17,8 +17,8 @@ BLUE = (0, 0, 255)
 #Constants
 FPS = 60
 GRAVITY = 1
-FORCE = 2
-damping_factor = 0.7
+FORCE = 4
+damping_factor = 0.6
 
 #Sling Properties
 slingshot_pos = pygame.Vector2(100, HEIGHT - 100)
