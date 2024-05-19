@@ -18,10 +18,10 @@ class snake():
 
 	#Initiaizing the snake element
 	def __init__(self, start_pos):
-		self.snake_body = pygame.image.load("images/snake_yellow_blob_64.png")
+		self.snake_body = pygame.image.load("assets/snake_yellow_blob_64.png")
 		self.snake_body = pygame.transform.scale(self.snake_body, (IMGX, IMGY ))
 
-		self.snake_head = pygame.image.load("images/snake_yellow_head_64.png")
+		self.snake_head = pygame.image.load("assets/snake_yellow_head_64.png")
 		self.snake_head = pygame.transform.scale(self.snake_head, (IMGX, IMGY))
 
 		#Snake Segment
@@ -104,10 +104,10 @@ class apple():
 
 	#Initializing Apple Element
     def __init__(self):
-        self.apple_green_img = pygame.image.load("images/apple_green_64.png")
+        self.apple_green_img = pygame.image.load("assets/apple_green_64.png")
         self.apple_green_img = pygame.transform.scale(self.apple_green_img, (IMGX, IMGY))
 
-        self.apple_red_img = pygame.image.load("images/apple_red_64.png")
+        self.apple_red_img = pygame.image.load("assets/apple_red_64.png")
         self.apple_red_img = pygame.transform.scale(self.apple_red_img, (IMGX,IMGY))
 
         self.apple = self.apple_green_img
@@ -157,7 +157,7 @@ class game():
 		self.apple = apple()				#apple instance
 
 		#Game Background
-		self.background_image = pygame.image.load("images/background_game3.png")
+		self.background_image = pygame.image.load("assets/background_game3.png")
 		self.background_image = pygame.transform.scale(self.background_image, (WIDTH,HEIGHT))
 
 	#Game function
